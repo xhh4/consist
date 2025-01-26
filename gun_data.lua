@@ -1,13 +1,3 @@
-utility.get_gun_remote = function()
-    local remote = game.ReplicatedStorage:GetDescendants()
-    for _, v in pairs(remote) do
-        if v.Name == "MainEvent" or v.Name == "Bullets" or v.Name == ".gg/untitledhood" or v.Name == "Remote" or v.Name == "MAINEVENT" or v.Name == ".gg/flamehood" then
-            return v
-        end
-    end
-    return nil
-end
-
 utility.get_gun_argument = function()
    local placeid = game.PlaceId
    if placeid == 2788229376 or placeid == 4106313503 or placeid == 11143225577 or placeid == 17319408836 or placeid == 18110728826 then
