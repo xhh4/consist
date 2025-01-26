@@ -32,7 +32,8 @@ local gun_data = {
        ["9825515356"] = "MousePosUpdate",
        ["15166543806"] = "MoonUpdateMousePos",
        ["16033173781"] = "UpdateMousePosI",
-       ["7213786345"] = "UpdateMousePosI"
+       ["7213786345"] = "UpdateMousePosI",
+       ["78151430956789"] = "b6d303530"
    }
 }
 
