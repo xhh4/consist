@@ -1,9 +1,11 @@
 utility.get_gun_remote = function()
-   for _, v in pairs(game.ReplicatedStorage:GetDescendants()) do
-       if v.Name == "MainEvent" or v.Name == "Bullets" or v.Name == ".gg/untitledhood" or v.Name == "Remote" or v.Name == "MAINEVENT" or v.Name == ".gg/flamehood" then
-           return v
-       end
-   end
+    local remote = game.ReplicatedStorage:GetDescendants()
+    for _, v in pairs(remote) do
+        if v.Name == "MainEvent" or v.Name == "Bullets" or v.Name == ".gg/untitledhood" or v.Name == "Remote" or v.Name == "MAINEVENT" or v.Name == ".gg/flamehood" then
+            return v
+        end
+    end
+    return nil
 end
 
 utility.get_gun_argument = function()
