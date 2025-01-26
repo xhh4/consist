@@ -1,68 +1,73 @@
+local gun_data = {
+   groups = {
+       [32948907] = {
+           remote = "game:GetService('ReplicatedStorage').assets.dh.MainEvent",
+           args = {
+               [1] = "UpdateMousePos",
+               [2] = {
+                   [1] = position,
+                   [2] = position
+               }
+           }
+       },
+       [35112943] = {
+           remote = "game:GetService('ReplicatedStorage').MAINEVENT",
+           args = {
+               [1] = "MOUSE", 
+               [2] = {
+                   [1] = position
+               }
+           }
+       }
+   },
+   
+   games = {
+       [2788229376] = {args = "UpdateMousePosI"},
+       [9825515356] = {args = "MousePosUpdate"},
+       [5602055394] = {args = "MousePos"},
+       [15186202290] = {args = "MOUSE"},
+       [15166543806] = {args = "MoonUpdateMousePos"},
+       [16033173781] = {args = "UpdateMousePosI"},
+       [7213786345] = {args = "UpdateMousePosI"}
+   },
+
+   remotes = {
+       "MainEvent",
+       "Bullets", 
+       ".gg/untitledhood",
+       "Remote",
+       "MAINEVENT",
+       ".gg/flamehood"
+   }
+}
+
 return {
-    get_event = function()
-        for _, v in pairs(game.ReplicatedStorage:GetChildren()) do
-            if v.Name == "MainEvent" or v.Name == "Bullets" or v.Name == ".gg/untitledhood" or v.Name == "Remote" or v.Name == "MAINEVENT" or v.Name == ".gg/flamehood" or game:GetService("ReplicatedStorage"):FindFirstChild("assets") and game:GetService("ReplicatedStorage").assets:FindFirstChild("dh") and v == game:GetService("ReplicatedStorage").assets.dh.MainEvent then
-                return v
-            end
-        end
-    end,
+   get_remote = function()
+       for _, v in pairs(game.ReplicatedStorage:GetChildren()) do
+           if table.find(gun_data.remotes, v.Name) or game:GetService("ReplicatedStorage"):FindFirstChild("assets") and game:GetService("ReplicatedStorage").assets:FindFirstChild("dh") and v == game:GetService("ReplicatedStorage").assets.dh.MainEvent then
+               return v
+           end
+       end
+   end,
 
-    get_args = function(position)
-        local place_id = game.PlaceId
-        if place_id == 2788229376 then
-            return "UpdateMousePosI"
-        elseif place_id == 9825515356 then
-            return "MousePosUpdate" 
-        elseif place_id == 5602055394 then
-            return "MousePos"
-        elseif place_id == 17403265390 then
-            return "MOUSE"
-        elseif place_id == 17403166075 then
-            return "MOUSE"
-        elseif place_id == 17403262882 then
-            return "MOUSE"
-        elseif place_id == 15186202290 then
-            return "MOUSE"
-        elseif place_id == 11143225577 then
-            return "UpdateMousePos"
-        elseif place_id == 15763494605 then
-            return "MOUSE"
-        elseif place_id == 15166543806 then
-            return "MoonUpdateMousePos"
-        elseif place_id == 17319408836 then
-            return "UpdateMousePos"
-        elseif place_id == 16033173781 then
-            return "UpdateMousePosI"
-        elseif place_id == 7213786345 then
-            return "UpdateMousePosI"
-        elseif place_id == 18110728826 then
-            return "UpdateMousePos"
-        elseif place_id == 17897702920 then
-            return "UpdateMousePos"
-        elseif place_id == 14975320521 then
-            return "UpdateMousePos"
-        elseif place_id == 17200018150 then
-            return "UpdateMousePos"
-        elseif place_id == 15644861772 then
-            return "UpdateMousePos"
-        elseif place_id == 17809101348 then
-            return "UpdateMousePos"
-        elseif place_id == 17344804827 then
-            return "UpdateMousePos"
-        elseif place_id == 16435867341 then
-            return "UpdateMousePos"
-        else
-            return "UpdateMousePos"
-        end
-    end,
-
-    detect = function(event, args, position)
-        if not event then return end
-        
-        if type(args) == "string" then
-            event:FireServer(args, position)
-        else
-            event:FireServer("UpdateMousePos", position)
-        end
-    end
+   get_args = function(position)
+       local group_id = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Creator.CreatorTargetId
+       
+       if gun_data.groups[group_id] then
+           local args = gun_data.groups[group_id].args
+           if #args[2] == 2 then
+               args[2][1] = position
+               args[2][2] = position
+           else
+               args[2][1] = position
+           end
+           return args
+       end
+       
+       if gun_data.games[game.PlaceId] then
+           return gun_data.games[game.PlaceId].args
+       end
+       
+       return "UpdateMousePos"
+   end
 }
