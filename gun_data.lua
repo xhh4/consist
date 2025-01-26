@@ -1,7 +1,7 @@
 local gun_data = {
    groups = {
        [32948907] = {
-           remote = "game:GetService('ReplicatedStorage').assets.dh.MainEvent",
+           remote = game:GetService("ReplicatedStorage").assets.dh.MainEvent,
            args = {
                [1] = "UpdateMousePos",
                [2] = {
@@ -11,7 +11,7 @@ local gun_data = {
            }
        },
        [35112943] = {
-           remote = "game:GetService('ReplicatedStorage').MAINEVENT",
+           remote = game:GetService("ReplicatedStorage").MAINEVENT,
            args = {
                [1] = "MOUSE", 
                [2] = {
@@ -43,8 +43,13 @@ local gun_data = {
 
 return {
    get_remote = function()
-       for _, v in pairs(game.ReplicatedStorage:GetChildren()) do
-           if table.find(gun_data.remotes, v.Name) or game:GetService("ReplicatedStorage"):FindFirstChild("assets") and game:GetService("ReplicatedStorage").assets:FindFirstChild("dh") and v == game:GetService("ReplicatedStorage").assets.dh.MainEvent then
+       local group_id = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Creator.CreatorTargetId
+       if gun_data.groups[group_id] then
+           return gun_data.groups[group_id].remote
+       end
+       
+       for _, v in pairs(game:GetService("ReplicatedStorage"):GetChildren()) do
+           if table.find(gun_data.remotes, v.Name) then
                return v
            end
        end
