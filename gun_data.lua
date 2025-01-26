@@ -7,7 +7,7 @@ return {
         end
     end,
 
-    get_args = function()
+    get_args = function(position)
         local place_id = game.PlaceId
         if place_id == 2788229376 then
             return "UpdateMousePosI"
@@ -52,26 +52,17 @@ return {
         elseif place_id == 16435867341 then
             return "UpdateMousePos"
         else
-            return {
-                [1] = "UpdateMousePos",
-                [2] = {
-                    [1] = position,
-                    [2] = position
-                }
-            }
+            return "UpdateMousePos"
         end
     end,
 
     detect = function(event, args, position)
+        if not event then return end
+        
         if type(args) == "string" then
             event:FireServer(args, position)
-        elseif type(args[2]) == "table" then
-            args[2][1] = position
-            args[2][2] = position
-            event:FireServer(unpack(args))
         else
-            args[2] = position
-            event:FireServer(unpack(args))
+            event:FireServer("UpdateMousePos", position)
         end
     end
 }
