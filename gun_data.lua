@@ -1,15 +1,5 @@
 local gun_data = {
    groups = {
-       [32948907] = {
-           remote = game:GetService("ReplicatedStorage").assets.dh.MainEvent,
-           args = {
-               [1] = "UpdateMousePos",
-               [2] = {
-                   [1] = position,
-                   [2] = position
-               }
-           }
-       },
        [35112943] = {
            args = {
                [1] = "MOUSE", 
