@@ -1,70 +1,28 @@
-local gun_data = {
-    groups = {
-        [35112943] = {
-            args = {
-                [1] = "MOUSE", 
-                [2] = {
-                    [1] = position
-                }
-            }
-        }
-    },
-    
-    games = {
-        [2788229376] = {args = "UpdateMousePosI"},
-        [9825515356] = {args = "MousePosUpdate"},
-        [5602055394] = {args = "MousePos"},
-        [15186202290] = {args = "MOUSE"},
-        [15166543806] = {args = "MoonUpdateMousePos"},
-        [16033173781] = {args = "UpdateMousePosI"},
-        [7213786345] = {args = "UpdateMousePosI"}
-    },
-
-    remotes = {
-        "MainEvent",
-        "Bullets", 
-        ".gg/untitledhood",
-        "Remote",
-        "MAINEVENT",
-        ".gg/flamehood"
-    }
-}
-
 return {
-    get_remote = function()
-        local cache = {}
-        local group_id = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Creator.CreatorTargetId
-        
-        if gun_data.groups[group_id] and gun_data.groups[group_id].remote then
-            return gun_data.groups[group_id].remote
-        end
-
-        for _, v in pairs(game:GetService("ReplicatedStorage"):GetDescendants()) do
-            if table.find(gun_data.remotes, v.Name) and not cache[v] then
-                cache[v] = true
+    get_event = function()
+        for _, v in pairs(game.ReplicatedStorage:GetChildren()) do
+            if v.Name == "MainEvent" or v.Name == "Bullets" or v.Name == ".gg/untitledhood" or v.Name == "Remote" or v.Name == "MAINEVENT" or v.Name == ".gg/flamehood" then
                 return v
             end
         end
     end,
 
-    get_args = function(position)
-        local group_id = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Creator.CreatorTargetId
-        
-        if gun_data.groups[group_id] then
-            local args = gun_data.groups[group_id].args
-            if args[2][2] then
-                args[2][1] = position
-                args[2][2] = position
-            else
-                args[2][1] = position
-            end
-            return args
+    get_args = function()
+        local place_id = game.PlaceId
+        if place_id == 2788229376 or place_id == 4106313503 or place_id == 11143225577 or place_id == 17319408836 or place_id == 18110728826 then
+            return "UpdateMousePosI"
+        elseif place_id == 5602055394 or place_id == 7951883376 then
+            return "MousePos"
+        elseif place_id == 10100958808 or place_id == 12645617354 or place_id == 14171242539 or place_id == 14412436145 or place_id == 14412355918 or place_id == 14413720089 or place_id == 17403265390 or place_id == 17403166075 or place_id == 17403262882 or place_id == 15186202290 or place_id == 15763494605 then
+            return "MOUSE"
+        elseif place_id == 9825515356 then
+            return "MousePosUpdate"
+        elseif place_id == 15166543806 then
+            return "MoonUpdateMousePos"
+        elseif place_id == 16033173781 or place_id == 7213786345 then
+            return "UpdateMousePosI"
+        else
+            return "UpdateMousePos"
         end
-        
-        if gun_data.games[game.PlaceId] then
-            return gun_data.games[game.PlaceId].args
-        end
-        
-        return "UpdateMousePos"
     end
 }
