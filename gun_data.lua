@@ -9,8 +9,8 @@ return {
            local method = getnamecallmethod()
            
            if not checkcaller() and method == "FireServer" then
-               gun_remote = self
-               gun_argument = argument
+               getgenv().gun_remote = self
+               getgenv().gun_argument = argument
            end
            
            return old_namecall(self, ...)
