@@ -83,4 +83,4 @@ getgenv().consist = {
     }
 }
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/xhh4/ICantTap/refs/heads/main/ICanTap.lua"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/xhh4/ICantTap/refs/heads/main/use_consist.lua"))()
